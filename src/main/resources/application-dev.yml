@@ -29,9 +29,6 @@ logging:
     org.thymeleaf: info
 
 spring:
-  profiles:
-    active: dev
-    include:
   mvc:
     static-path-pattern: /**
   resources:
