@@ -24,9 +24,9 @@ package ${package.Entity};
 <#if entityLombokModel>
     @Data
     <#if superEntityClass??>
-        @EqualsAndHashCode(callSuper = true)
+    @EqualsAndHashCode(callSuper = true)
     <#else>
-        @EqualsAndHashCode(callSuper = false)
+    @EqualsAndHashCode(callSuper = false)
     </#if>
     @Accessors(chain = true)
 </#if>

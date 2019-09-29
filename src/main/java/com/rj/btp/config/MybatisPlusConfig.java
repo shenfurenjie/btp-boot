@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Caratacus
  */
 @Configuration
-@MapperScan(value = {"com.rj.btb.**.mapper"})
+@MapperScan(value = {"com.rj.btp.**.mapper"})
 public class MybatisPlusConfig {
 
     /**

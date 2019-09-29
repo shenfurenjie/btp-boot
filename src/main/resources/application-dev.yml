@@ -94,4 +94,3 @@ management:
     shutdown:
       enabled: true
 
-#springfox.documentation.swagger.v2.path: /swagger

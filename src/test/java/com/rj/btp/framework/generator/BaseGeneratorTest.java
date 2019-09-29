@@ -14,7 +14,12 @@ public class BaseGeneratorTest {
     BaseGenerator baseGenerator;
 
     @Test
-    public void executeGenerate() {
-        baseGenerator.executeGenerate("t_user", "com.rj.btp.hrms", "userManager");
+    public void executeGenerateUser() {
+        baseGenerator.executeGenerate("t_user", "com.rj.btp.biz.hrms", "userManager");
+    }
+
+    @Test
+    public void executeGenerateDep() {
+        baseGenerator.executeGenerate("t_department", "com.rj.btp.biz.hrms", "departmentManager");
     }
 }

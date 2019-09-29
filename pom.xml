@@ -29,6 +29,14 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+
+        <!--工作流-->
+        <!--<dependency>-->
+        <!--<groupId>org.flowable</groupId>-->
+        <!--<artifactId>flowable-spring-boot-starter</artifactId>-->
+        <!--<version>6.3.1</version>-->
+        <!--</dependency>-->
+
         <!--<dependency>-->
         <!--<groupId>org.springframework.boot</groupId>-->
         <!--<artifactId>spring-boot-devtools</artifactId>-->
@@ -90,6 +98,14 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.47</version>
         </dependency>
+
+        <!-- xxl-job -->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.0.2-SNAPSHOT</version>
+        </dependency>
+
         <!-- log4j -->
         <dependency>
             <groupId>log4j</groupId>
@@ -128,7 +144,11 @@
             <artifactId>commons-codec</artifactId>
             <version>1.12</version>
         </dependency>
-
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
         <!--swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -140,11 +160,11 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.plugin</groupId>
-            <artifactId>spring-plugin-core</artifactId>
-            <version>1.2.0.RELEASE</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.plugin</groupId>-->
+        <!--<artifactId>spring-plugin-core</artifactId>-->
+        <!--<version>1.2.0.RELEASE</version>-->
+        <!--</dependency>-->
         <!--&lt;!&ndash;Bean转换工具&ndash;&gt;-->
         <!--<dependency>-->
         <!--<groupId>org.modelmapper</groupId>-->
@@ -158,19 +178,6 @@
             <artifactId>maven-invoker</artifactId>
             <version>2.2</version>
         </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>com.graphql-java</groupId>-->
-        <!--<artifactId>graphql-java</artifactId>-->
-        <!--<version>2019-08-02T04-53-20-6063e7e</version>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.5</version>
-        </dependency>
-
-
     </dependencies>
     <build>
         <plugins>

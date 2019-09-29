@@ -35,10 +35,14 @@ spring:
   mvc:
     static-path-pattern: /**
   resources:
-      static-locations: classpath:/static/x-admin/
+    static-locations: classpath:/static/x-admin/
   thymeleaf:
-      prefix: classpath:/static/x-admin/
-      cache: false
+    prefix: classpath:/static/x-admin/
+    cache: false
+  flowable:
+  #关闭定时任务JOB
+    async-executor-activate: false
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -97,4 +101,19 @@ management:
     shutdown:
       enabled: true
 
-#springfox.documentation.swagger.v2.path: /swagger
+xxl:
+  job:
+    admin:
+    ### 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    executor:
+    ### 执行器AppName [选填]：执行器心跳注册分组依据；为空则关闭自动注册
+      appname: xxl-job-executor-btp-boot
+      ip:
+      ### 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999，单机部署多个执行器时，注意要配置不同执行器端口；
+      port: 9999
+      ### xxl-job log path
+      logpath: /Users/renjie/workspace/xxl-job/data/applogs/xxl-job/jobhandler
+      ### xxl-job log retention days
+      logretentiondays: -1
+    accessToken:

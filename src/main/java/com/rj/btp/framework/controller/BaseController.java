@@ -1,23 +1,4 @@
-/*
- * Copyright (c) 2018-2022 Caratacus, (caratacus@qq.com).
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+
 package com.rj.btp.framework.controller;
 
 import com.alibaba.fastjson.JSON;
@@ -47,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -60,8 +40,10 @@ import static com.rj.btp.framework.common.wrapper.RestResponse.success;
 @Slf4j
 public abstract class BaseController<T, S extends BaseService<T>> extends AbstractController implements InitializingBean {
 
-    protected S service;
+
     protected Class<T> entityClass;
+
+    protected S service;
 
     @Autowired
     ApplicationContextRegister applicationContextRegister;
@@ -71,13 +53,13 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Abstra
     public void afterPropertiesSet() {
         if (service == null || entityClass == null) {
             ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-            Class<?> cls1 = (Class<?>) type.getActualTypeArguments()[1];
             Class<?> cls0 = (Class<?>) type.getActualTypeArguments()[0];
+            Class<?> cls1 = (Class<?>) type.getActualTypeArguments()[1];
             try {
-                service = (S) ApplicationContextRegister.getBean(cls1);
                 entityClass = (Class<T>) cls0;
+                service = (S) ApplicationContextRegister.getBean(cls1);
             } catch (Exception e) {
-                logger.error("初始化controller失败", e);
+                logger.info("初始化controller失败,请查看配置启动扫描mapper路径", e);
             }
         }
     }
@@ -93,7 +75,6 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Abstra
      */
     @ApiOperation(value = "查询数据集合")
     @PostMapping(value = "/queryList")
-
     public RestResponse queryList(HttpServletRequest request, HttpServletResponse response) {
         String queryCndJson = buildQueryCndJson(request);
         List<T> list = new ArrayList<>();
@@ -161,9 +142,14 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Abstra
         if (CollectionUtils.isNotEmpty(updateCondition.getRelCndArray())) {
             return RestResponse.failure(ErrorCodeEnum.BAD_REQUEST);
         }
-        List<Map<String, Object>> updateMap = updateCondition.getSetCndArray();
-        List<?> saveObjects = BeanConvertUtil.mapToBean(updateMap, entityClass);
-        boolean flag = service.saveOrUpdateBatch((Collection<T>) saveObjects);
+        List<Map<String, Object>> updateMapList = updateCondition.getSetCndArray();
+        List<T> saveObjects = null;
+        try {
+            saveObjects = BeanConvertUtil.mapToBean(updateMapList, (Class<T>) entityClass.newInstance().getClass());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        boolean flag = service.saveOrUpdateBatch(saveObjects);
         return success(flag);
     }
 
@@ -175,8 +161,13 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Abstra
     @PostMapping(value = "/update")
     public RestResponse update(HttpServletRequest request, HttpServletResponse response) {
         UpdateCondition updateCondition = ConditionUtil.buildUpdateCondition(buildUpdateCndJson(request));
-        List<Map<String, Object>> updateMap = updateCondition.getSetCndArray();
-        List<?> saveObjects = BeanConvertUtil.mapToBean(updateMap, entityClass);
+        List<Map<String, Object>> updateMapList = updateCondition.getSetCndArray();
+        List<T> saveObjects = null;
+        try {
+            saveObjects = BeanConvertUtil.mapToBean(updateMapList, (Class<T>) entityClass.newInstance().getClass());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //set为空场景
         if (CollectionUtils.isEmpty(saveObjects)) {
             return RestResponse.failure(ErrorCodeEnum.BAD_REQUEST);
@@ -189,17 +180,17 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Abstra
             }
             //条件更新
             UpdateWrapper updateWrapper = MyBaitsConditionUtil.buildUpdateWrapper(updateCondition);
-            boolean flag = service.update((T) saveObjects.get(0), updateWrapper);
+            boolean flag = service.update(saveObjects.get(0), updateWrapper);
             return success(flag);
         }
         //批量或者单条更新
-        Boolean flag = service.saveOrUpdateBatch((Collection<T>) saveObjects);
+        Boolean flag = service.saveOrUpdateBatch(saveObjects);
         return success(flag);
     }
 
 
     /**
-     * 查询数据总数
+     * 删除数据
      */
     @ApiOperation(value = "删除数据")
     @DeleteMapping(value = "/delete")
@@ -236,6 +227,9 @@ public abstract class BaseController<T, S extends BaseService<T>> extends Abstra
     public String buildUpdateCndJson(HttpServletRequest request) {
         String requestBody = WebUtil.getRequestBody(request);
         Map reqBodyMap = (Map) JSON.parse(requestBody);
+        if (reqBodyMap == null) {
+            return null;
+        }
         String queryCndJson = JSON.toJSONString(reqBodyMap.get(CndEnum.updateCondition.name()));
         return queryCndJson;
     }
