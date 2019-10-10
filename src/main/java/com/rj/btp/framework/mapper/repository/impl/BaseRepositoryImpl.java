@@ -1,10 +1,14 @@
 package com.rj.btp.framework.mapper.repository.impl;
 
+import com.rj.btp.framework.common.utils.BeanConvertUtil;
 import com.rj.btp.framework.mapper.repository.BaseRepository;
 import com.rj.btp.framework.model.condition.JpaCondtionUtil;
 import com.rj.btp.framework.model.condition.QueryCondition;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,10 +16,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
@@ -98,6 +103,50 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRep
     }
 
     /**
+     * 新增或修改,忽略对象中的null值
+     *
+     * @param model
+     * @return
+     */
+    @Override
+    public T saveModelExcludeNulls(T model) {
+        //查询数据库中的现有数据
+        Map map = BeanConvertUtil.beanToMap(model);
+        T target = this.findModelById((ID) map.get("id"));
+        copyNonNullProperties(model, target);
+        return this.save(target);
+    }
+
+    /**
+     * 入参和已有数据转换
+     *
+     * @param src
+     * @param target
+     */
+    public void copyNonNullProperties(Object src, Object target) {
+        BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
+    }
+
+    /**
+     * 过滤入参中的null值字段
+     *
+     * @param source
+     * @return
+     */
+    public String[] getNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<String>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) emptyNames.add(pd.getName());
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
+    }
+
+    /**
      * 批量新增或修改
      *
      * @param entities
@@ -106,6 +155,22 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRep
     @Override
     public List<T> saveModels(Iterable<T> entities) {
         return super.saveAll(entities);
+    }
+
+    /**
+     * 批量新增或修改,忽略对象中的null值
+     *
+     * @param entities
+     * @return
+     */
+    @Override
+    public List<T> saveModelsExcludeNulls(Iterable<T> entities) {
+        Assert.notNull(entities, "The given Iterable of entities not be null!");
+        List<T> result = new ArrayList<T>();
+        for (T entity : entities) {
+            result.add(saveModelExcludeNulls(entity));
+        }
+        return result;
     }
 
     /**

@@ -1,10 +1,10 @@
 package com.rj.btp.biz.hrms.employee.model;
 
 
-import com.rj.btp.biz.hrms.department.model.Department;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,8 +18,9 @@ public class Employee implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "snowflakeIdGenerator")
+    @GenericGenerator(name = "snowflakeIdGenerator", strategy = "com.rj.btp.framework.id.SnowflakeIdGenerator")
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -33,13 +34,16 @@ public class Employee implements Serializable {
     @Column(name = "department_id")
     private Integer departmentId;
 
-    @OneToOne(cascade = CascadeType.ALL)//employee是地址关系的维护端，当删除employee时会及联删除address
+//    @Column(name = "address_id")
+//    private Integer addressId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)//employee是地址关系的维护端，当删除employee时会及联删除address
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;//地址
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
-    @JoinColumn(name = "department_id", insertable = false, updatable = false)//设置在employee表中的关联字段(外键)
-    private Department department;
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
+//    @JoinColumn(name = "department_id", insertable = false, updatable = false)//设置在employee表中的关联字段(外键)
+//    private Department department;
 
 
 }

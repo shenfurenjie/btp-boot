@@ -5,5 +5,5 @@ import com.rj.btp.framework.mapper.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends BaseRepository<Employee, Integer> {
+public interface EmployeeRepository extends BaseRepository<Employee, Long> {
 }

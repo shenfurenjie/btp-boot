@@ -58,6 +58,16 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
     T saveModel(T model);
 
     /**
+     * 新增或修改,忽略对象中的null值
+     *
+     * @param model
+     * @return
+     */
+    @Modifying
+    @Transactional(rollbackFor = Exception.class)
+    T saveModelExcludeNulls(T model);
+
+    /**
      * 批量新增或修改
      *
      * @param entities
@@ -66,6 +76,16 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
     @Modifying
     @Transactional(rollbackFor = Exception.class)
     List<T> saveModels(Iterable<T> entities);
+
+    /**
+     * 批量新增或修改,忽略对象中的null值
+     *
+     * @param entities
+     * @return
+     */
+    @Modifying
+    @Transactional(rollbackFor = Exception.class)
+    List<T> saveModelsExcludeNulls(Iterable<T> entities);
 
 
     /**
