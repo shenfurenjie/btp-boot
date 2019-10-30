@@ -15,7 +15,7 @@ druid:
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   global-config:
-    super-mapper-class: com.rj.btp.framework.mapper.BaseMapper
+    super-mapper-class: com.tiger.btp.framework.mapper.BaseMapper
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

@@ -1,0 +1,1 @@
+xjc *.xsd -d ../../java;

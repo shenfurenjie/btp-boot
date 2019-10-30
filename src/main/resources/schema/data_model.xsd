@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.tiger.com/btp/model/data_model" xmlns="http://www.tiger.com/btp/model/data_model"
+           elementFormDefault="qualified">
+    <xs:element name="data_models">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="data_model" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="data_model">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="attribute" minOccurs="1" maxOccurs="unbounded"></xs:element>
+                <xs:element ref="valGroups" minOccurs="0" maxOccurs="1"></xs:element><!--定义校验组-->
+                <xs:element ref="relations" minOccurs="0" maxOccurs="1"></xs:element>
+                <xs:element name="view_schema" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="dialect" type="DialectType"></xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="tableName" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="label" type="xs:string"></xs:attribute>
+            <xs:attribute name="pkAttribute" type="xs:string" default="id"></xs:attribute>
+            <xs:attribute name="pkAuto" type="xs:boolean" default="false"></xs:attribute>
+            <xs:attribute name="unionPk" type="xs:string" default=""></xs:attribute>
+            <xs:attribute name="view" type="xs:boolean" default="false"></xs:attribute>
+            <xs:attribute name="virtual" type="xs:boolean" default="false"></xs:attribute>
+            <xs:attribute name="extends" type="xs:string"></xs:attribute><!--只处理字段, 不处理属性-->
+            <xs:attribute name="display" type="xs:string"></xs:attribute>
+            <xs:attribute name="public" type="xs:boolean"></xs:attribute>
+            <xs:attribute name="generatorSchema" type="xs:boolean" default="true"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--定义校验组-->
+    <xs:element name="valGroups">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="valGroup" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="valGroup">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string"></xs:attribute>
+            <xs:attribute name="label" type="xs:string"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="attribute">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="valConfigs" minOccurs="0" maxOccurs="1"></xs:element>
+                <xs:element ref="relations" minOccurs="0" maxOccurs="1"></xs:element>
+                <xs:element name="view_schema" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="dialect" type="DialectType"></xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="type" type="attributeType" use="required"></xs:attribute>
+            <xs:attribute name="unique" type="xs:boolean" default="false"></xs:attribute>
+            <xs:attribute name="nullable" type="xs:boolean" default="true"></xs:attribute>
+            <xs:attribute name="length" type="xs:int" default="255"></xs:attribute>
+            <xs:attribute name="precision" type="xs:int" default="10"></xs:attribute>
+            <xs:attribute name="scale" type="xs:int" default="3"></xs:attribute>
+            <xs:attribute name="label" type="xs:string"></xs:attribute>
+            <xs:attribute name="columnName" type="xs:string"></xs:attribute>
+            <xs:attribute name="codeNumber" type="xs:string"></xs:attribute>
+            <xs:attribute name="dateFormat" type="xs:string"></xs:attribute>
+            <xs:attribute name="defaultValue" type="xs:string"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <!--定义校验规则-->
+    <xs:element name="valConfigs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="valConfig" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="valConfig">
+        <xs:complexType>
+            <xs:attribute name="valRule" type="xs:string"></xs:attribute>
+            <xs:attribute name="valRuleValue" type="xs:string"></xs:attribute>
+            <xs:attribute name="message" type="xs:string"></xs:attribute>
+            <xs:attribute name="valGroup" type="xs:string"></xs:attribute>
+            <xs:attribute name="integer" type="xs:int"></xs:attribute>
+            <xs:attribute name="fraction" type="xs:int"></xs:attribute>
+            <xs:attribute name="min" type="xs:int"></xs:attribute>
+            <xs:attribute name="max" type="xs:int"></xs:attribute>
+            <xs:attribute name="regexp" type="xs:string"></xs:attribute>
+
+            <xs:attribute name="label" type="xs:string"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="attributeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="INTEGER"/>
+            <xs:enumeration value="LONG"/>
+            <xs:enumeration value="BOOLEAN"/>
+            <xs:enumeration value="STRING"/>
+            <xs:enumeration value="TIMESTAMP"/>
+            <xs:enumeration value="BIG_DECIMAL"/>
+            <xs:enumeration value="CLOB"/>
+            <xs:enumeration value="BLOB"/>
+            <xs:enumeration value="CODE"/>
+            <xs:enumeration value="LONG_TEXT"/>
+            <xs:enumeration value="LONG_TEXT_IN_FILE"/>
+            <xs:enumeration value="FILE_GROUP"/>
+            <xs:enumeration value="GEOMETRY"/>
+            <xs:enumeration value="GEOMETRY_POINT"/>
+            <xs:enumeration value="GEOMETRY_MULTIPOINT"/>
+            <xs:enumeration value="GEOMETRY_LINESTRING"/>
+            <xs:enumeration value="GEOMETRY_MULTILINESTRING"/>
+            <xs:enumeration value="GEOMETRY_POLYGON"/>
+            <xs:enumeration value="GEOMETRY_MULTIPOLYGON"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DialectType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SqlServer"/>
+            <xs:enumeration value="Mysql"/>
+            <xs:enumeration value="Oracle"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="relations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="relation" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="relation">
+        <xs:complexType>
+            <xs:attribute name="type" type="relationType" use="required"></xs:attribute>
+            <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="attribute_name" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="model_id" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="model_attribute" type="xs:string" use="required"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="relationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="object"/>
+            <xs:enumeration value="array"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

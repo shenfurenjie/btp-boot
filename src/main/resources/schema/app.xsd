@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.tiger.com/btp/model/app" xmlns="http://www.tiger.com/btp/model/app"
+           elementFormDefault="qualified">
+    <xs:element name="apps">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="app" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="app">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="imports" minOccurs="0" maxOccurs="1"></xs:element>
+                <xs:element ref="configs" minOccurs="1" maxOccurs="1"></xs:element>
+                <!--<xs:element ref="bundles" minOccurs="1" maxOccurs="unbounded"></xs:element>-->
+                <!--<xs:element ref="permissionData" minOccurs="0" maxOccurs="unbounded"></xs:element>-->
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="label" type="xs:string"></xs:attribute>
+            <xs:attribute name="priority" type="xs:integer" default="0"></xs:attribute>
+            <xs:attribute name="groupId" type="xs:string"></xs:attribute>
+            <xs:attribute name="artifactId" type="xs:string"></xs:attribute>
+            <xs:attribute name="version" type="xs:string"></xs:attribute>
+            <xs:attribute name="snapshotRepositoryURL" type="xs:string"></xs:attribute>
+            <xs:attribute name="repositoryURL" type="xs:string"></xs:attribute>
+            <xs:attribute name="enable" type="xs:boolean" default="true"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="imports">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="import" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="import">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="properties" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+            <xs:attribute name="mavenGroupId" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="mavenArtifactId" type="xs:string" use="required"></xs:attribute>
+            <xs:attribute name="mavenVersion" type="xs:string" default="1.0-SNAPSHOT"></xs:attribute>
+            <xs:attribute name="scanPackage" type="xs:string" use="required"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="properties">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="key" type="xs:string"/>
+                    <xs:attribute name="profile" type="xs:string" default="default"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="configs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="config" minOccurs="0" maxOccurs="unbounded"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="key" type="xs:string"/>
+                    <xs:attribute name="profile" type="xs:string" default="default"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bundles">
+        <xs:complexType>
+            <xs:attribute name="ref" type="xs:string" use="required"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="permissionData">
+        <xs:complexType>
+            <xs:attribute name="ref" type="xs:string" use="required"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
