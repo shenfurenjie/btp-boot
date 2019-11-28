@@ -11,7 +11,6 @@ import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.tiger.btp.framework.common.constants.BaseConstant;
 import com.tiger.btp.framework.common.context.AppContextUtil;
 import com.tiger.btp.framework.common.utils.ThreadUtil;
-import com.tiger.btp.framework.mapper.BaseMapper;
 import com.tiger.btp.framework.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -37,7 +36,7 @@ import java.util.Objects;
  */
 
 @Slf4j
-public class BaseServiceImpl<T, M extends BaseMapper<T>> implements BaseService<T>, InitializingBean {
+public class BaseServiceImpl<T, M extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T>> implements BaseService<T>, InitializingBean {
 
 
     @Autowired

@@ -1,6 +1,11 @@
 package com.tiger.btp.framework.common.constants;
 
 
+import sun.security.action.GetPropertyAction;
+
+import java.io.File;
+import java.security.AccessController;
+
 /**
  * 系统常量
  */
@@ -15,6 +20,11 @@ public class BaseConstant {
 
     public static final String mapperPath = projectPath + "/src/main/resources/mapper/";
 
+
+    /**
+     * 临时目录
+     */
+    public static final File tmpdir = new File((String) AccessController.doPrivileged(new GetPropertyAction("java.io.tmpdir")));
 
     /**
      * 请求报文体

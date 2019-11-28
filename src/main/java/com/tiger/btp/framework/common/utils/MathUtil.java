@@ -128,7 +128,7 @@ public final strictfp class MathUtil {
         return new BigDecimal(start + Math.random() * (end - start));
     }
 
-    public static final void main(String[] args) {
+    public static final void main(StringUtil[] args) {
         System.out.println(add(1.000001, 2.10));
     }
 }

@@ -1,15 +1,7 @@
 package com.tiger.btp.config;
 
 
-import com.tiger.btp.framework.container.ModuleRefreshScheduler;
-import com.tiger.btp.framework.container.VersionCenter;
-import com.tiger.btp.jarslink.api.ModuleLoader;
-import com.tiger.btp.jarslink.api.ModuleManager;
-import com.tiger.btp.jarslink.api.impl.ModuleLoaderImpl;
-import com.tiger.btp.jarslink.api.impl.ModuleManagerImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,24 +10,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ModuleAutoConfig {
 
-    @Bean
-    @ConditionalOnMissingBean(value = ModuleLoader.class)
-    public ModuleLoader getModuleLoader() {
-        ModuleLoader moduleLoader = new ModuleLoaderImpl();
-        return moduleLoader;
-    }
+//    @Bean
+//    @ConditionalOnMissingBean(value = ModuleLoader.class)
+//    public ModuleLoader getModuleLoader() {
+//        ModuleLoader moduleLoader = new ModuleLoaderImpl();
+//        return moduleLoader;
+//    }
+//
+//    @Bean
+//    @ConditionalOnMissingBean(value = ModuleManager.class)
+//    public ModuleManager getModuleManager() {
+//        ModuleManagerImpl moduleManager = new ModuleManagerImpl();
+//        return moduleManager;
+//    }
 
-    @Bean
-    @ConditionalOnMissingBean(value = ModuleManager.class)
-    public ModuleManager getModuleManager() {
-        ModuleManagerImpl moduleManager = new ModuleManagerImpl();
-        return moduleManager;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(value = VersionCenter.class)
-    public VersionCenter getVersionCenter() {
-        return new VersionCenter();
+//    @Bean
+//    @ConditionalOnMissingBean(value = VersionCenter.class)
+//    public VersionCenter getVersionCenter() {
+//        return new VersionCenter();
 //        VersionCenter center = new VersionCenter(minthaPropertiesService.getJarPluginDir());
 //        center.setProductModel(minthaPropertiesService.getVersionCenterProductModel());
 //        center.setProductModelBasePath(minthaPropertiesService.getProductModelBasePath());
@@ -76,18 +68,18 @@ public class ModuleAutoConfig {
 //        center.registerJarVersion(jarVersionDTO);
 //
 //        return center;
-    }
+//    }
 
-    @Bean
-    @ConditionalOnMissingBean(value = ModuleRefreshScheduler.class)
-    public ModuleRefreshScheduler getJavaModuleRefreshScheduler(VersionCenter versionCenter, ModuleLoader moduleLoader, ModuleManager moduleManager) {
-        ModuleRefreshScheduler moduleRefreshScheduler = new ModuleRefreshScheduler();
-        //versionCenter.setRegisterListener(javaModuleRefreshScheduler);
-        //moduleRefreshScheduler.setVersionCenter(versionCenter);
-        moduleRefreshScheduler.setModuleLoader(moduleLoader);
-        moduleRefreshScheduler.setModuleManager(moduleManager);
-        return moduleRefreshScheduler;
-    }
+//    @Bean
+//    @ConditionalOnMissingBean(value = ModuleRefreshScheduler.class)
+//    public ModuleRefreshScheduler getJavaModuleRefreshScheduler(VersionCenter versionCenter, ModuleLoader moduleLoader, ModuleManager moduleManager) {
+//        ModuleRefreshScheduler moduleRefreshScheduler = new ModuleRefreshScheduler();
+//        //versionCenter.setRegisterListener(javaModuleRefreshScheduler);
+//        //moduleRefreshScheduler.setVersionCenter(versionCenter);
+//        moduleRefreshScheduler.setModuleLoader(moduleLoader);
+//        moduleRefreshScheduler.setModuleManager(moduleManager);
+//        return moduleRefreshScheduler;
+//    }
 
 
 }

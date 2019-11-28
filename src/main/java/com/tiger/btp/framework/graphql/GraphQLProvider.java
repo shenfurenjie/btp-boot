@@ -1,29 +1,35 @@
 package com.tiger.btp.framework.graphql;
 
 import com.google.common.io.Resources;
+import com.tiger.btp.app.DataModelFactory;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 
+import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
-@Component
+@Slf4j
+//@Component
 public class GraphQLProvider {
 
-    @Autowired
-    GraphQLDataFetchers graphQLDataFetchers;
     private GraphQL graphQL;
+
+    @Autowired
+    DataFetcherFactory dataFetcherFactory;
+
+    DataModelFactory dataModelFactory;
 
     @Bean
     public GraphQL graphQL() {
@@ -37,7 +43,6 @@ public class GraphQLProvider {
         GraphQLSchema graphQLSchema = buildSchema(sdl);
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
-
     private GraphQLSchema buildSchema(String sdl) {
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);
         RuntimeWiring runtimeWiring = buildWiring();
@@ -46,12 +51,8 @@ public class GraphQLProvider {
     }
 
     private RuntimeWiring buildWiring() {
-        return RuntimeWiring.newRuntimeWiring()
-                .type(newTypeWiring("Query")
-                        .dataFetcher("employeeById", graphQLDataFetchers.getBookByIdDataFetcher()))
-                .type(newTypeWiring("Employee")
-                        .dataFetcher("author", graphQLDataFetchers.getAuthorDataFetcher()))
-                .build();
+        return newRuntimeWiring()
+                .type(newTypeWiring("Query").dataFetchers(dataFetcherFactory.getQueryDataFetcher())).build();
     }
 
 }

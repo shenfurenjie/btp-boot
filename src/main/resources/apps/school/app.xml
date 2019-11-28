@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<apps xmlns="http://www.tiger.com/btp/model/app">
+    <app name="school" artifactId="school_model" groupId="com.tiger.btp.school" version="1.0.1-SNAPSHOT"
+         repositoryURL="http://localhost:8081/repository/maven-public/"
+         snapshotRepositoryURL="http://localhost:8081/repository/maven-snapshots/">
+        <configs>
+            <!--<config key="dataSourceUrl">-->
+            <!--<![CDATA[-->
+            <!--jdbc:sqlserver://192.168.1.167:1433;DatabaseName=fms-->
+            <!--]]>-->
+            <!--</config>-->
+            <!--<config key="dataSourceUsername">root</config>-->
+            <!--<config key="dataSourcePassword">root</config>-->
+
+            <!--<config key="dataSourceDriverClassName">com.microsoft.sqlserver.jdbc.SQLServerDriver</config>-->
+            <!--<config key="accessServiceBeanName">defaultAccessInfo</config>-->
+        </configs>
+    </app>
+</apps>

@@ -118,17 +118,6 @@
             <xs:enumeration value="BIG_DECIMAL"/>
             <xs:enumeration value="CLOB"/>
             <xs:enumeration value="BLOB"/>
-            <xs:enumeration value="CODE"/>
-            <xs:enumeration value="LONG_TEXT"/>
-            <xs:enumeration value="LONG_TEXT_IN_FILE"/>
-            <xs:enumeration value="FILE_GROUP"/>
-            <xs:enumeration value="GEOMETRY"/>
-            <xs:enumeration value="GEOMETRY_POINT"/>
-            <xs:enumeration value="GEOMETRY_MULTIPOINT"/>
-            <xs:enumeration value="GEOMETRY_LINESTRING"/>
-            <xs:enumeration value="GEOMETRY_MULTILINESTRING"/>
-            <xs:enumeration value="GEOMETRY_POLYGON"/>
-            <xs:enumeration value="GEOMETRY_MULTIPOLYGON"/>
         </xs:restriction>
     </xs:simpleType>
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data_models xmlns="http://www.tiger.com/btp/model/data_model">
+
+
+    <data_model id="school" tableName="t_school" label="学校" pkAttribute="id">
+        <attribute name="id" type="LONG" label="ID"/>
+        <attribute name="schoolName" type="STRING" label="学校名称"/>
+    </data_model>
+
+    <data_model id="schoolClass" tableName="t_class" label="班级">
+        <attribute name="id" type="LONG" label="ID"/>
+        <attribute name="className" type="STRING" label="班级名称"/>
+        <attribute name="schoolId" type="LONG" label="学校ID"/>
+        <relations>
+            <relation type="object" name="school" attribute_name="schoolId" model_id="school"
+                      model_attribute="id"></relation>
+        </relations>
+    </data_model>
+
+    <!--<data_model id="teacher" tableName="t_teacher" label="老师">-->
+    <!--<attribute name="id" type="LONG" label="ID"/>-->
+    <!--<attribute name="teacherName" type="STRING" label="老师名称"/>-->
+    <!--</data_model>-->
+
+    <!--<data_model id="classTeacherRel" tableName="t_class_teacher_rel" label="班级-老师关联">-->
+    <!--<attribute name="id" type="LONG" label="ID"/>-->
+    <!--<attribute name="classId" type="LONG" label="班级ID"/>-->
+    <!--<attribute name="teacherId" type="LONG" label="老师ID"/>-->
+    <!--<relations>-->
+    <!--<relation type="object" name="class" attribute_name="classId" model_id="class" model_attribute="id"></relation>-->
+    <!--<relation type="object" name="teacher" attribute_name="teacherId" model_id="teacher" model_attribute="id"></relation>-->
+    <!--</relations>-->
+    <!--</data_model>-->
+
+
+</data_models>

@@ -54,6 +54,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!--spring状态机器-->
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-core</artifactId>
+            <version>2.1.2.RELEASE</version>
+        </dependency>
         <!--监控-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -104,15 +110,25 @@
         </dependency>
 
         <!--graphql-->
+        <!--<dependency>-->
+        <!--<groupId>com.graphql-java</groupId>-->
+        <!--<artifactId>graphql-java-tools</artifactId>-->
+        <!--<version>5.2.4</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java</artifactId>
-            <version>11.0</version>
+            <version>13.0</version>
         </dependency>
         <dependency>
             <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-java-spring-boot-starter-webmvc</artifactId>
-            <version>1.0</version>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
+            <version>5.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>5.0.2</version>
         </dependency>
 
         <!-- xxl-job -->
@@ -199,6 +215,24 @@
             <artifactId>maven-invoker</artifactId>
             <version>2.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.tiger.btp.school</groupId>
+            <artifactId>school_model</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.6.Final</version>
+        </dependency>
+
+        <!--<dependency>-->
+        <!--<groupId>org.hibernate</groupId>-->
+        <!--<artifactId>hibernate-spatial</artifactId>-->
+        <!--<version>5.3.1.Final</version>-->
+        <!--</dependency>-->
     </dependencies>
     <repositories>
         <repository>
