@@ -26,7 +26,7 @@ public class AppService {
 
     @Setter
     @Getter
-    String modelPackageName;
+    String basePackageName;
 
     @Setter
     String host;
@@ -42,20 +42,20 @@ public class AppService {
     public AppService(App app, ApplicationContext applicationContext) {
         this.app = app;
         this.applicationContext = applicationContext;
-        this.modelPackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
+        this.basePackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
     }
 
     public AppService(App app, ApplicationContext applicationContext, DataModelFactory dataModelFactory) {
         this.app = app;
         this.applicationContext = applicationContext;
-        this.modelPackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
+        this.basePackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
         this.dataModelFactory = dataModelFactory;
     }
 
     public AppService(App app, ApplicationContext applicationContext, DataModelFactory dataModelFactory, DataSource dataSource) {
         this.app = app;
         this.applicationContext = applicationContext;
-        this.modelPackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
+        this.basePackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
         this.dataModelFactory = dataModelFactory;
         this.dataSource = dataSource;
     }
@@ -65,7 +65,7 @@ public class AppService {
         this.applicationContext = applicationContext;
         this.host = host;
         this.basePath = basePath;
-        this.modelPackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
+        this.basePackageName = MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId());
     }
 
 }

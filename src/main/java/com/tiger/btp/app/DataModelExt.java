@@ -19,6 +19,10 @@ public class DataModelExt extends DataModel {
     @Getter
     DataModelFactory dataModelFactory;
 
+    @Setter
+    @Getter
+    String basePackageName;
+
 
 //    @Setter
 //    @Getter

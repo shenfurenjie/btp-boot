@@ -1,16 +1,14 @@
 package com.tiger.btp.app;
 
+import com.tiger.btp.framework.common.context.AppContextUtil;
 import com.tiger.btp.framework.common.exception.BaseException;
 import com.tiger.btp.model.app.App;
 import com.tiger.btp.model.app.Apps;
 import com.tiger.btp.model.data_model.DataModels;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -22,9 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Data
 @Component
-public class AppServiceFactory implements ApplicationContextAware {
-
-    ApplicationContext applicationContext;
+public class AppServiceFactory {
 
     @Autowired
     DataModelFactory dataModelFactory;
@@ -42,11 +38,6 @@ public class AppServiceFactory implements ApplicationContextAware {
     String basePath;
     private Object lock = new Object();
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
-
 
     /**
      * 创建app服务
@@ -60,9 +51,9 @@ public class AppServiceFactory implements ApplicationContextAware {
         if (appServiceMap.containsKey(app.getName())) {
             throw new BaseException("app [" + app.getName() + "] has exists , please check app name !");
         }
-        AppService appService = new AppService(app, applicationContext, dataModelFactory, dataSource);
+        AppService appService = new AppService(app, AppContextUtil.getApplicationContext(), dataModelFactory, dataSource);
         dataModels.getDataModel().forEach(dataModel -> {
-            dataModelFactory.createDataModelExt(dataModel, app.getName());
+            dataModelFactory.createDataModelExt(dataModel, app);
         });
         appServiceMap.put(app.getName(), appService);
         return getAppService(app.getName());

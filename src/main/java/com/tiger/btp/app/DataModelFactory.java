@@ -1,6 +1,8 @@
 package com.tiger.btp.app;
 
 import com.alibaba.fastjson.JSON;
+import com.tiger.btp.framework.common.utils.MavenUtil;
+import com.tiger.btp.model.app.App;
 import com.tiger.btp.model.data_model.Attribute;
 import com.tiger.btp.model.data_model.AttributeType;
 import com.tiger.btp.model.data_model.DataModel;
@@ -68,7 +70,7 @@ public class DataModelFactory implements DisposableBean {
      *
      * @param dataModel
      */
-    public void createDataModelExt(DataModel dataModel, String appId) {
+    public void createDataModelExt(DataModel dataModel, App app) {
         DataModelExt ext;
         if (dataModel instanceof DataModelExt) {
             ext = (DataModelExt) dataModel;
@@ -77,6 +79,7 @@ public class DataModelFactory implements DisposableBean {
             ext = JSON.parseObject(JSON.toJSONString(dataModel), DataModelExt.class);
             //ext.setDataModel(dataModel);
             ext.setDataModelFactory(this);
+            ext.setBasePackageName(MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId()));
         }
         dataModelExtMap.put(dataModel.getId(), ext);
         //refreshGraphQLSchema();

@@ -10,7 +10,7 @@ public class ApplicationContextRegister implements ApplicationContextAware {
 
     private static ApplicationContext APPLICATION_CONTEXT;
 
-    static ApplicationContext getApplicationContext() {
+    public static ApplicationContext getApplicationContext() {
         return APPLICATION_CONTEXT;
     }
 

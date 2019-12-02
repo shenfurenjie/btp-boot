@@ -38,7 +38,7 @@ public class DataFetcherFactory {
             AppService appService = appServiceFactory.getAppService((String) iterator.next());
             DataModelFactory dataModelFactory = appService.getDataModelFactory();
             for (DataModelExt ext : dataModelFactory.getDataModelExtMap().values()) {
-                String modelClass = appService.getModelPackageName() + "." + ext.getClassName();
+                String modelClass = appService.getBasePackageName() + "." + ext.getClassName();
                 log.info("modelClass is {}", modelClass);
                 Class c = Object.class;
                 try {
