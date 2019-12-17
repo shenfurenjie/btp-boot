@@ -42,7 +42,7 @@ public class JavaToPdfHtmlFreeMarkerUtil {
      * @throws DocumentException
      * @throws FileNotFoundException
      */
-    public static void javaToPdf() throws DocumentException {
+    public static void javaToPdf() throws DocumentException, FileNotFoundException {
         String DEST = "/Users/renjie/workspace/ideaProjects/btp-boot/src/main/resources/HelloWorld.pdf";
         Document document = new Document();
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DEST));
@@ -59,7 +59,7 @@ public class JavaToPdfHtmlFreeMarkerUtil {
      * @throws DocumentException
      * @throws FileNotFoundException
      */
-    public static void javaToPdfCN() throws DocumentException {
+    public static void javaToPdfCN() throws DocumentException, FileNotFoundException {
         String DEST = "target/HelloWorld_CN.pdf";
         String FONT = "simhei.ttf";
 
