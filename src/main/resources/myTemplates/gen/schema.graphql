@@ -1,0 +1,8 @@
+type Query {
+    find_school_by_id(id: ID): School
+}
+
+type School {
+    id: ID
+    schoolName: String
+}

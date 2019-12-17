@@ -13,6 +13,7 @@ import java.util.Map;
 public class ConditionUtil {
 
     /**
+     *
      * 构建接口入参QueryCondition
      *
      * @param queryCndMap

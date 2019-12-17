@@ -1,7 +1,6 @@
 package com.tiger.btp.framework.graphql;
 
 import com.google.common.io.Resources;
-import com.tiger.btp.app.DataModelFactory;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
@@ -12,16 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.Charsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 
-import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
-import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
-
 @Slf4j
-//@Component
+@Component
 public class GraphQLProvider {
 
     private GraphQL graphQL;
@@ -29,7 +26,8 @@ public class GraphQLProvider {
     @Autowired
     DataFetcherFactory dataFetcherFactory;
 
-    DataModelFactory dataModelFactory;
+    @Autowired
+    GraphQLSchemaProvider graphQLSchemaProvider;
 
     @Bean
     public GraphQL graphQL() {
@@ -40,7 +38,7 @@ public class GraphQLProvider {
     public void init() throws IOException {
         URL url = Resources.getResource("graphqls/schema.graphql");
         String sdl = Resources.toString(url, Charsets.UTF_8);
-        GraphQLSchema graphQLSchema = buildSchema(sdl);
+        GraphQLSchema graphQLSchema = graphQLSchemaProvider.buildGraphQLSchema(sdl);
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
     private GraphQLSchema buildSchema(String sdl) {
@@ -51,8 +49,7 @@ public class GraphQLProvider {
     }
 
     private RuntimeWiring buildWiring() {
-        return newRuntimeWiring()
-                .type(newTypeWiring("Query").dataFetchers(dataFetcherFactory.getQueryDataFetcher())).build();
+        return graphQLSchemaProvider.buildRuntimeWiring();
     }
 
 }

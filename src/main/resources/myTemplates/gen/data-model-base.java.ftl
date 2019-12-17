@@ -14,7 +14,7 @@ import lombok.Setter;
 
 //import org.hibernate.validator.constraints.Length;
 //import javax.validation.constraints.*;
-@TableName("${model.tableName}")
+//@TableName("${model.tableName}")
 @Data
 public class ${model.baseClassName} {
 

@@ -1,6 +1,6 @@
 package ${basePackageName}.mapper;
 import org.apache.ibatis.annotations.Mapper;
-import ${basePackageName}.model.${model.baseClassName};
+import ${basePackageName}.model.${model.className};
 
 /**
  * <p>
@@ -9,4 +9,4 @@ import ${basePackageName}.model.${model.baseClassName};
  *
  */
 @Mapper
-public interface ${model.mapperName} extends ${superMapperClass}<${model.baseClassName}> {}
+public interface ${model.mapperName} extends ${superMapperClass}<${model.className}> {}

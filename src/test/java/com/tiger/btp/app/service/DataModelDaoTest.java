@@ -1,7 +1,7 @@
 package com.tiger.btp.app.service;
 
 import com.tiger.btp.school.school_model.mapper.SchoolBaseMapper;
-import com.tiger.btp.school.school_model.model.SchoolBase;
+import com.tiger.btp.school.school_model.model.School;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ public class DataModelDaoTest {
 
     @Test
     public void testSchoolMapper() {
-        SchoolBase school = schoolBaseMapper.selectById(1);
+        School school = schoolBaseMapper.selectById(1);
         log.info("school is {}", school);
     }
 }

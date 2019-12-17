@@ -5,6 +5,10 @@
     <data_model id="school" tableName="t_school" label="学校" pkAttribute="id">
         <attribute name="id" type="LONG" label="ID"/>
         <attribute name="schoolName" type="STRING" label="学校名称"/>
+        <relations>
+            <relation type="array" name="classList" attribute_name="id" model_id="schoolClass"
+                      model_attribute="schoolId"></relation>
+        </relations>
     </data_model>
 
     <data_model id="schoolClass" tableName="t_class" label="班级">
@@ -16,6 +20,13 @@
                       model_attribute="id"></relation>
         </relations>
     </data_model>
+
+    <!--<data_model id="student" tableName="t_student" label="学生" pkAttribute="id">-->
+    <!--<attribute name="id" type="LONG" label="ID"/>-->
+    <!--<attribute name="name" type="STRING" label="名称"/>-->
+    <!--<attribute name="classId" type="LONG" label="班级Id"/>-->
+    <!--</data_model>-->
+
 
     <!--<data_model id="teacher" tableName="t_teacher" label="老师">-->
     <!--<attribute name="id" type="LONG" label="ID"/>-->

@@ -82,6 +82,8 @@ public class DataModelFactory implements DisposableBean {
             ext.setBasePackageName(MavenUtil.getPackageName(app.getGroupId(), app.getArtifactId()));
         }
         dataModelExtMap.put(dataModel.getId(), ext);
+
+        //生成graphql的schema
         //refreshGraphQLSchema();
     }
 

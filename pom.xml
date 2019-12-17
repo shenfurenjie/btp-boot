@@ -120,15 +120,15 @@
             <artifactId>graphql-java</artifactId>
             <version>13.0</version>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.graphql-java</groupId>-->
+        <!--<artifactId>graphiql-spring-boot-starter</artifactId>-->
+        <!--<version>5.0.2</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.graphql-java</groupId>
-            <artifactId>graphiql-spring-boot-starter</artifactId>
-            <version>5.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.graphql-java</groupId>
-            <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>5.0.2</version>
+            <artifactId>graphql-java-spring-boot-starter-webmvc</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <!-- xxl-job -->
@@ -219,7 +219,7 @@
         <dependency>
             <groupId>com.tiger.btp.school</groupId>
             <artifactId>school_model</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -233,6 +233,18 @@
         <!--<artifactId>hibernate-spatial</artifactId>-->
         <!--<version>5.3.1.Final</version>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf.tool</groupId>
+            <artifactId>xmlworker</artifactId>
+            <version>5.5.11</version>
+        </dependency>
+
     </dependencies>
     <repositories>
         <repository>

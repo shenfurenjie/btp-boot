@@ -8,10 +8,11 @@ import com.tiger.btp.framework.graphql.model.condition.template.BaseTemplate;
 import com.tiger.btp.framework.graphql.model.condition.template.FindByIdTemplate;
 import graphql.ExecutionResult;
 import graphql.GraphQLError;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,10 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
-@Data
+@Component
 public class GraphQLServiceImpl implements GraphQLService {
 
+    @Autowired
     GraphQLProvider graphQLProvider;
 
     public <T> T extract(Class<T> clazz, Object result) {

@@ -41,7 +41,7 @@ public class GenModelServiceTest {
         pomXml.setName("school");
         pomXml.setArtifactId("school_model");
         pomXml.setGroupId("com.tiger.btp.school");
-        pomXml.setVersion("1.0.1-SNAPSHOT");
+        pomXml.setVersion("1.0.3-SNAPSHOT");
         pomXml.setRepositoryURL("http://localhost:8081/repository/maven-public/");
         pomXml.setSnapshotRepositoryURL("http://localhost:8081/repository/maven-snapshots/");
         String mavenHome = "/Users/renjie/workspace/apache-maven-3.5.2";

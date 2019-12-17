@@ -44,6 +44,10 @@ public class DataModelExt extends DataModel {
         return getClassName() + "Base";
     }
 
+//    public String getTableName(){
+//        return this.getTableName();
+//    }
+
     /**
      * 获取dataModel的所有属性
      *
@@ -129,6 +133,20 @@ public class DataModelExt extends DataModel {
             result.add(a.getName());
         }
         return result;
+    }
+
+    public String getQueryName() {
+        return "query_" + StringUtils.uncapitalize(this.getId());
+    }
+
+    public String getQueryPagedName() {
+
+        return "query_" + StringUtils.uncapitalize(this.getId()) + "_paged";
+    }
+
+    public String getQueryResultName() {
+
+        return "query_" + StringUtils.uncapitalize(this.getId()) + "_result";
     }
 
 }
